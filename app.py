@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-import time
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
@@ -35,7 +34,6 @@ def gerbera_animation():
     """, unsafe_allow_html=True)
 
 def floating_hearts_flowers():
-    # Floating hearts/flowers on photo
     st.markdown("""
     <style>
     .float-confetti {
@@ -72,7 +70,6 @@ def floating_hearts_flowers():
     """, unsafe_allow_html=True)
 
 def confetti_burst():
-    # Confetti animation when correct answer
     st.markdown("""
     <style>
     .confetti {
@@ -138,9 +135,10 @@ body {
 """, unsafe_allow_html=True)
 
 # ---------------- SESSION STATES ----------------
-for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened"]:
+for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened","photo_index","photo_music_played"]:
     if key not in st.session_state:
         st.session_state[key] = False
+st.session_state.photo_index = st.session_state.photo_index if "photo_index" in st.session_state else 0
 
 # ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
@@ -160,7 +158,8 @@ st.markdown("---")
 
 # ---------------- STAGE 1: QUIZ ----------------
 if not st.session_state.q1_done:
-    st.audio("music.mp3", autoplay=True, loop=True)
+    if st.button("🎵 Play Quiz Music"):
+        st.audio("music.mp3", loop=True)
     ans1 = st.text_input("1️⃣ What is my favorite activity?")
     if st.button("Submit Answer 1"):
         if ans1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
@@ -172,7 +171,8 @@ if not st.session_state.q1_done:
             st.error("Try again 😏")
 
 elif not st.session_state.q2_done:
-    st.audio("music.mp3", autoplay=True, loop=True)
+    if st.button("🎵 Play Quiz Music"):
+        st.audio("music.mp3", loop=True)
     ans2 = st.text_input("2️⃣ When was the first time you saw me? (MM/DD/Y)")
     if st.button("Submit Answer 2"):
         if ans2 in ["08/29/25", "August 29 2025"]:
@@ -183,20 +183,39 @@ elif not st.session_state.q2_done:
         else:
             st.error("Almost 😏")
 
-# ---------------- STAGE 2: PHOTO ----------------
+# ---------------- STAGE 2: PHOTO (COLLAGE/SCROLL) ----------------
 elif not st.session_state.photo_shown:
-    st.audio("special_song.mp3", autoplay=True, loop=True)
-    st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
-    st.image("memory.jfif", use_container_width=True)
-    floating_hearts_flowers()  # floating hearts and flowers animation
+    if not st.session_state.photo_music_played:
+        if st.button("🎵 Play Photo Music"):
+            st.audio("special_song.mp3", loop=True)
+            st.session_state.photo_music_played = True
 
-    if st.button("💌 Continue"):
-        st.session_state.photo_shown = True
-        st.rerun()
+    st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
+    
+    photo_list = ["memory.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
+    st.image(photo_list[st.session_state.photo_index], use_container_width=True)
+    
+    floating_hearts_flowers()
+
+    col1, col2, col3 = st.columns([1,2,1])
+    with col1:
+        if st.button("⬅️ Previous"):
+            if st.session_state.photo_index > 0:
+                st.session_state.photo_index -= 1
+    with col3:
+        if st.button("Next ➡️"):
+            if st.session_state.photo_index < len(photo_list)-1:
+                st.session_state.photo_index += 1
+
+    if st.session_state.photo_index == len(photo_list)-1:
+        if st.button("💌 Continue"):
+            st.session_state.photo_shown = True
+            st.rerun()
 
 # ---------------- STAGE 3: LETTER ----------------
 elif not st.session_state.letter_opened:
-    st.audio("music.mp3", autoplay=True, loop=True)
+    if st.button("🎵 Play Letter Music"):
+        st.audio("music.mp3", loop=True)
     st.subheader("💌 Your reward: My letter")
     st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
     gerbera_animation()
@@ -205,14 +224,27 @@ elif not st.session_state.letter_opened:
         st.session_state.letter_opened = True
         st.rerun()
 
-# ---------------- STAGE 4: FULL CONFESSION ----------------
+# ---------------- FINAL CONFESSION LETTER ----------------
 else:
-    st.audio("music.mp3", autoplay=True, loop=True)
-    st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
-    st.markdown("""
-    <h3>📩 Opened with love</h3>
-    <p>
-    Dear Zeqq,<br><br>
+    st.subheader("💌 Your reward: My letter")
+
+    if not st.session_state.letter_opened:
+        # Show uploaded envelope image first
+        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
+
+        # Gerbera animation behind the envelope (optional)
+        gerbera_animation()
+
+        if st.button("💖 Open Letter"):
+            st.session_state.letter_opened = True
+            st.rerun()
+    else:
+        # Show the white paper with confession
+        st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
+        st.markdown("""
+        <h3>📩 Opened with love</h3>
+        <p>
+        Dear Zeqq,<br><br>
 
         I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
 
@@ -257,13 +289,15 @@ else:
         """, unsafe_allow_html=True)
 
         # 🌸 End-of-letter flourish: 2 pink, 2 yellow, 2 red flowers
-st.markdown("""
+        st.markdown("""
         <div style="text-align:center; font-size:40px;">
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 
 
