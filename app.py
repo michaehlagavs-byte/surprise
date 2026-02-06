@@ -195,7 +195,7 @@ elif not st.session_state.photo_shown:
     st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
 
     # Multiple photos
-    photos = ["memory1.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
+    photos = ["memory.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
     st.image(photos[st.session_state.photo_index], use_container_width=True)
     floating_hearts_flowers()
 
@@ -297,6 +297,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
