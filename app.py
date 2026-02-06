@@ -111,7 +111,42 @@ else:
         st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
 
         # Gerbera animation behind the envelope (optional)
-        gerbera_animation()
+        def gerbera_animation():
+    st.markdown("""
+    <style>
+    .gerbera-container {
+        position: fixed;
+        bottom: -10%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 38px;
+        animation: floatUp 8s linear infinite;
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0);
+            opacity: 0;
+        }
+        20% {
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(-120vh);
+            opacity: 0;
+        }
+    }
+    </style>
+
+    <div class="gerbera-container">
+        🌸 💛 🌸 💛 🌸 💛
+    </div>
+    """, unsafe_allow_html=True)
+
 
         if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
@@ -174,5 +209,6 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
