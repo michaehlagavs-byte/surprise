@@ -20,14 +20,12 @@ def gerbera_animation():
         pointer-events: none;
         z-index: -1;
     }
-
     @keyframes floatUp {
         0% { transform: translateY(0); opacity: 0; }
         20% { opacity: 0.8; }
         100% { transform: translateY(-120vh); opacity: 0; }
     }
     </style>
-
     <div class="gerbera-container">
         🌸 💛 🌸 💛 🌸 💛
     </div>
@@ -56,7 +54,6 @@ def floating_hearts_flowers():
         100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
     </style>
-
     <div class="float-confetti">
         <span style="left:10%; animation-duration:6s;">🌸</span>
         <span style="left:20%; animation-duration:8s;">💛</span>
@@ -106,7 +103,6 @@ body {
     background-size: 80px;
     background-repeat: repeat;
 }
-
 @keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
 .stButton>button {
     background-color:#ff8b8b;
@@ -117,7 +113,6 @@ body {
     border:none;
     animation:pulse 2s infinite;
 }
-
 .envelope {
     width: 80%;
     max-width: 600px;
@@ -128,18 +123,17 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
-
 .fade-in {animation: fadeIn 2s ease-in forwards;}
 @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------- SESSION STATES ----------------
-for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened",
-            "quiz_music_played","photo_music_played","letter_music_played","photo_index"]:
+for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened","photo_index","photo_music_playing"]:
     if key not in st.session_state:
         st.session_state[key] = False
-st.session_state.photo_index = st.session_state.photo_index if "photo_index" in st.session_state else 0
+st.session_state.setdefault("photo_index", 0)
+st.session_state.setdefault("photo_music_playing", False)
 
 # ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
@@ -157,11 +151,9 @@ st.markdown("<h1 style='text-align:center; color:white;'>Hi, Zeqq ❤️</h1>", 
 st.markdown("<p style='text-align:center; color:white;'>I made this little quiz just for you 🥰</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# ---------------- STAGE 1 & 2: QUIZ ----------------
+# ---------------- STAGE 1: QUIZ ----------------
 if not st.session_state.q1_done:
-    if not st.session_state.quiz_music_played:
-        st.audio("music.mp3", autoplay=True, loop=True)
-        st.session_state.quiz_music_played = True
+    st.audio("music.mp3", autoplay=True, loop=True)
     ans1 = st.text_input("1️⃣ What is my favorite activity?")
     if st.button("Submit Answer 1"):
         if ans1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
@@ -173,9 +165,7 @@ if not st.session_state.q1_done:
             st.error("Try again 😏")
 
 elif not st.session_state.q2_done:
-    if not st.session_state.quiz_music_played:
-        st.audio("music.mp3", autoplay=True, loop=True)
-        st.session_state.quiz_music_played = True
+    st.audio("music.mp3", autoplay=True, loop=True)
     ans2 = st.text_input("2️⃣ When was the first time you saw me? (MM/DD/Y)")
     if st.button("Submit Answer 2"):
         if ans2 in ["08/29/25", "August 29 2025"]:
@@ -186,41 +176,40 @@ elif not st.session_state.q2_done:
         else:
             st.error("Almost 😏")
 
-# ---------------- STAGE 3: PHOTO ----------------
+# ---------------- STAGE 2: PHOTO ----------------
 elif not st.session_state.photo_shown:
-    if not st.session_state.photo_music_played:
+    # play special song once when entering photo stage
+    if not st.session_state.photo_music_playing:
+        st.session_state.photo_music_playing = True
         st.audio("special_song.mp3", autoplay=True, loop=True)
-        st.session_state.photo_music_played = True
-
     st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
-
-    # Multiple photos
-    photos = ["memory.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
+    
+    # Multiple photos example (collage/scrollable)
+    photos = ["memory1.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
     st.image(photos[st.session_state.photo_index], use_container_width=True)
-    floating_hearts_flowers()
-
-    col1, col2 = st.columns(2)
+    
+    col1, col2 = st.columns([1,1])
     with col1:
-        if st.button("⬅ Previous"):
+        if st.button("⬅️ Previous"):
             st.session_state.photo_index = max(0, st.session_state.photo_index - 1)
     with col2:
-        if st.button("Next ➡"):
+        if st.button("➡️ Next"):
             st.session_state.photo_index = min(len(photos)-1, st.session_state.photo_index + 1)
-
+    
+    floating_hearts_flowers()  # floating hearts and flowers
+    
     if st.button("💌 Continue"):
         st.session_state.photo_shown = True
+        st.session_state.photo_music_playing = False  # stop special_song
         st.rerun()
 
-# ---------------- STAGE 4: LETTER ----------------
+# ---------------- STAGE 3: LETTER ----------------
 elif not st.session_state.letter_opened:
-    if not st.session_state.letter_music_played:
-        st.audio("music.mp3", autoplay=True, loop=True)
-        st.session_state.letter_music_played = True
-
+    st.audio("music.mp3", autoplay=True, loop=True)
     st.subheader("💌 Your reward: My letter")
     st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
     gerbera_animation()
-
+    
     if st.button("💖 Open Letter"):
         st.session_state.letter_opened = True
         st.rerun()
