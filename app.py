@@ -257,13 +257,14 @@ else:
         """, unsafe_allow_html=True)
 
         # 🌸 End-of-letter flourish: 2 pink, 2 yellow, 2 red flowers
-        st.markdown("""
+st.markdown("""
         <div style="text-align:center; font-size:40px;">
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
