@@ -147,7 +147,7 @@ else:
     # Show the white paper with confession only if letter_opened is True
     st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
     st.markdown("""... your full confession HTML ...""", unsafe_allow_html=True)
-        st.markdown("""
+    st.markdown("""
         <h3>📩 Opened with love</h3>
         <p>
         Dear Zeqq,<br><br>
@@ -202,6 +202,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
