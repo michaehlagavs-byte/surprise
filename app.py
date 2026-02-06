@@ -1,5 +1,4 @@
 import streamlit as st
-import random
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
@@ -70,10 +69,21 @@ body {
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- PASSWORD ----------------
+# ---------------- SESSION STATES ----------------
 if "unlocked" not in st.session_state:
     st.session_state.unlocked = False
+if "q1_done" not in st.session_state:
+    st.session_state.q1_done = False
+if "q2_done" not in st.session_state:
+    st.session_state.q2_done = False
+if "photo_shown" not in st.session_state:
+    st.session_state.photo_shown = False
+if "letter_opened" not in st.session_state:
+    st.session_state.letter_opened = False
+if "music_started" not in st.session_state:
+    st.session_state.music_started = False
 
+# ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
     st.markdown("<h1 style='text-align:center;'>🔐 A Secret Just for You</h1>", unsafe_allow_html=True)
     pwd = st.text_input("Enter the password", type="password")
@@ -84,12 +94,7 @@ if not st.session_state.unlocked:
         st.info("Hint: date of second day DSPC 2025 ❤️")
     st.stop()
 
-# ---------------- STATES ----------------
-for key in ["q1", "q2", "photo_shown", "letter_opened", "music_started"]:
-    if key not in st.session_state:
-        st.session_state[key] = False
-
-# ---------------- MUSIC (QUIZ) ----------------
+# ---------------- MUSIC ----------------
 if not st.session_state.music_started:
     if st.button("🎵 Play Background Music"):
         st.session_state.music_started = True
@@ -102,26 +107,28 @@ st.markdown("<h1 style='text-align:center; color:white;'>Hi, Zeqq ❤️</h1>", 
 st.markdown("<p style='text-align:center; color:white;'>I made this little quiz just for you 🥰</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# ---------------- QUIZ ----------------
-if not st.session_state.q1:
+# ---------------- STAGE 1: QUIZ ----------------
+if not st.session_state.q1_done:
     ans1 = st.text_input("1️⃣ What is my favorite activity?")
     if st.button("Submit Answer 1"):
         if ans1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
-            st.session_state.q1 = True
+            st.success("Correct! 🥰")
+            st.session_state.q1_done = True
             st.rerun()
         else:
             st.error("Try again 😏")
 
-elif not st.session_state.q2:
+elif not st.session_state.q2_done:
     ans2 = st.text_input("2️⃣ When was the first time you saw me? (MM/DD/Y)")
     if st.button("Submit Answer 2"):
         if ans2 in ["08/29/25", "August 29 2025"]:
-            st.session_state.q2 = True
+            st.success("Correct! 🥰")
+            st.session_state.q2_done = True
             st.rerun()
         else:
             st.error("Almost 😌")
 
-# ---------------- PHOTO + NEW MUSIC ----------------
+# ---------------- STAGE 2: PHOTO ----------------
 elif not st.session_state.photo_shown:
     st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
     st.audio("special_song.mp3", autoplay=True, loop=True)
@@ -131,83 +138,75 @@ elif not st.session_state.photo_shown:
         st.session_state.photo_shown = True
         st.rerun()
 
-# ---------------- FINAL CONFESSION LETTER ----------------
-else:
+# ---------------- STAGE 3: LETTER ENVELOPE ----------------
+elif not st.session_state.letter_opened:
     st.subheader("💌 Your reward: My letter")
+    st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
 
-    if not st.session_state.letter_opened:
-        # Show uploaded envelope image first
-        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
+    # Gerbera animation behind envelope
+    gerbera_animation()
 
-        # Gerbera animation behind the envelope
-        gerbera_animation()
+    if st.button("💖 Open Letter"):
+        st.session_state.letter_opened = True
+        st.rerun()
 
-        if st.button("💖 Open Letter"):
-            st.session_state.letter_opened = True
-            st.rerun()
+# ---------------- STAGE 4: FULL CONFESSION ----------------
+else:
+    st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
+    st.markdown("""
+    <h3>📩 Opened with love</h3>
+    <p>
+    Dear Zeqq,<br><br>
 
-    else:
-        # Show the white paper with confession
-        st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
-        st.markdown("""
-        <h3>📩 Opened with love</h3>
-        <p>
-        Dear Zeqq,<br><br>
+    I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
 
-        I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
+    I only recently realized how much you mean to me—and maybe that’s what makes this confession feel so real.
+    Nothing was rushed, nothing was forced. It grew quietly, gently, until one day I just knew.<br><br>
 
-        I only recently realized how much you mean to me—and maybe that’s what makes this confession feel so real.
-        Nothing was rushed, nothing was forced. It grew quietly, gently, until one day I just knew.<br><br>
+    Since we started talking on <b>September 28</b>, everything slowly changed. What began as something unexpected—
+    because of a dare—turned into something I’m deeply grateful for. You were there during <b>DSPC</b>, and your
+    presence meant more than you probably realized. In moments when things felt overwhelming, you were someone I
+    could look at and feel calm. Safe.<br><br>
 
-        Since we started talking on <b>September 28</b>, everything slowly changed. What began as something unexpected—
-        because of a dare—turned into something I’m deeply grateful for. You were there during <b>DSPC</b>, and your
-        presence meant more than you probably realized. In moments when things felt overwhelming, you were someone I
-        could look at and feel calm. Safe.<br><br>
+    And then there were the gifts. The thought you put into them. But most of all… the flowers.<br><br>
 
-        And then there were the gifts. The thought you put into them. But most of all… the flowers.<br><br>
+    The <b>six gerberas</b> you gave me—<b>three pink and three yellow</b>—will always stay with me. That was my first
+    time receiving flowers. Ever. And I don’t think you understand how much that meant to someone like me.
+    Pink for warmth and affection, yellow for happiness and light—you gave me both. That moment changed something
+    in me. It made me feel valued, appreciated, and cared for in a way I had never experienced before.<br><br>
 
-        The <b>six gerberas</b> you gave me—<b>three pink and three yellow</b>—will always stay with me. That was my first
-        time receiving flowers. Ever. And that I don’t think you understand how much that meant to someone like me.
-        Pink for warmth and affection, yellow for happiness and light—you gave me both. That moment changed something
-        in me. It made me feel valued, appreciated, and cared for in a way I had never experienced before.<br><br>
+    I’ve always been someone who kept her guard up. I used to say I was a “man hater,” and maybe in some ways I was—
+    because I was scared. Scared of trusting, scared of being disappointed, scared of opening my heart.
+    You’re the <b>first guy I ever truly talked to</b>, the first one I allowed close, and that wasn’t easy for me.
+    But you made it feel natural. You were patient. Kind. Gentle.<br><br>
 
-        I’ve always been someone who kept her guard up. I used to say I was a “man hater,” and maybe in some ways I was—
-        because I was scared. Scared of trusting, scared of being disappointed, scared of opening my heart.
-        You’re the <b>first guy I ever truly talked to</b>, the first one I allowed close, and that wasn’t easy for me.
-        But you made it feel natural. You were patient. Kind. Gentle.<br><br>
+    Thinking back to <b>August 29</b>, the first time you saw me—and when you confessed—I didn’t realize then how much
+    that moment would matter. I didn’t realize how your sincerity would slowly break down walls I thought would
+    always stay up.<br><br>
 
-        Thinking back to <b>August 29</b>, the first time you saw me—and when you confessed—I didn’t realize then how much
-        that moment would matter. I didn’t realize how your sincerity would slowly break down walls I thought would
-        always stay up.<br><br>
+    Now I understand.<br><br>
 
-        Now I understand.<br><br>
+    I like you, Zeqq. Truly. Deeply. In a way that feels honest and real. You’ve changed how I see things—how I see
+    people, how I see love, how I see the possibility of trusting someone. You didn’t force your way into my heart.
+    You earned your place there.<br><br>
 
-        I like you, Zeqq. Truly. Deeply. In a way that feels honest and real. You’ve changed how I see things—how I see
-        people, how I see love, how I see the possibility of trusting someone. You didn’t force your way into my heart.
-        You earned your place there.<br><br>
+    Thank you for being there. Thank you for the gifts, the flowers, the effort, the presence. Thank you for being
+    patient with someone who was learning how to feel again.<br><br>
 
-        Thank you for being there. Thank you for the gifts, the flowers, the effort, the presence. Thank you for being
-        patient with someone who was learning how to feel again.<br><br>
+    This is my confession, from the heart. And I hope you know how special you are to me.<br><br>
 
-        This is my confession, from the heart. And I hope you know how special you are to me.<br><br>
+    Always,<br>
+    <b>Ehla ❤️</b>
+    </p>
+    """, unsafe_allow_html=True)
 
-        Always,<br>
-        <b>Ehla ❤️</b>
-        </p>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align:center; font-size:40px;">
+        🌸 🌸 💛 💛 🌹 🌹
+    </div>
+    """, unsafe_allow_html=True)
 
-        # End-of-letter flourish
-        st.markdown("""
-        <div style="text-align:center; font-size:40px;">
-            🌸 🌸 💛 💛 🌹 🌹
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 
