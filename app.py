@@ -14,17 +14,17 @@ body {
     background-repeat: repeat;
 }
 
-/* Button animation */
 @keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
-.stButton>button {background-color:#ff8b8b;color:white;font-size:18px;padding:12px 30px;border-radius:30px;border:none;animation:pulse 2s infinite;transition:all 0.3s ease-in-out;}
-.stButton>button:hover {background-color:#ffb3b3;transform:scale(1.12);}
+.stButton>button {
+    background-color:#ff8b8b;
+    color:white;
+    font-size:18px;
+    padding:12px 30px;
+    border-radius:30px;
+    border:none;
+    animation:pulse 2s infinite;
+}
 
-/* Floating animation */
-@keyframes floatUp {0%{transform:translateY(0);}100%{transform:translateY(-100vh);}}
-.balloon {position:absolute;font-size:40px;animation:floatUp 3s ease-in forwards;}
-.hearts {position:fixed;bottom:0;width:100%;text-align:center;font-size:22px;animation:floatUp 6s infinite;opacity:0.6;}
-
-/* Envelope / letter */
 .envelope {
     width: 80%;
     max-width: 600px;
@@ -34,18 +34,10 @@ body {
     border: 2px solid #ff4b4b;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    text-align: left;
-    position: relative;
-    z-index: 1000;
 }
-.envelope h3 {text-align:center;color:#ff4b4b;}
-.envelope p {color:black; font-size:16px; line-height:1.7;}
-.fade-in {animation:fadeIn 2s ease-in forwards;}
-@keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
 
-/* Gerbera flowers */
-.gerbera {position:absolute; font-size:30px; animation: floatGerbera 4s linear forwards;}
-@keyframes floatGerbera {0% {transform: translateY(0);} 100% {transform: translateY(100vh);}}
+.fade-in {animation: fadeIn 2s ease-in forwards;}
+@keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -55,102 +47,60 @@ if "unlocked" not in st.session_state:
 
 if not st.session_state.unlocked:
     st.markdown("<h1 style='text-align:center;'>🔐 A Secret Just for You</h1>", unsafe_allow_html=True)
-    password = st.text_input("Enter the password", type="password")
-    if password == "1213":
+    pwd = st.text_input("Enter the password", type="password")
+    if pwd == "1213":
         st.session_state.unlocked = True
         st.rerun()
     else:
         st.info("Hint: date of second day DSPC 2025 ❤️")
     st.stop()
 
-# ---------------- MUSIC ----------------
-if "music_played" not in st.session_state:
-    st.session_state.music_played = False
+# ---------------- STATES ----------------
+for key in ["q1", "q2", "photo_shown", "letter_opened", "music_started"]:
+    if key not in st.session_state:
+        st.session_state[key] = False
 
-if not st.session_state.music_played:
+# ---------------- MUSIC (QUIZ) ----------------
+if not st.session_state.music_started:
     if st.button("🎵 Play Background Music"):
-        try:
-            with open("music.mp3", "rb") as audio_file:
-                st.audio(audio_file.read(), format="audio/mp3", autoplay=True, loop=True)
-            st.session_state.music_played = True
-        except:
-            st.warning("🎶 Music file not found. The surprise still works!")
+        st.session_state.music_started = True
+        st.rerun()
 else:
-    try:
-        with open("music.mp3", "rb") as audio_file:
-            st.audio(audio_file.read(), format="audio/mp3", autoplay=True, loop=True)
-    except:
-        st.warning("🎶 Music file not found. The surprise still works!")
+    st.audio("music.mp3", autoplay=True, loop=True)
 
-# ---------------- WELCOME MESSAGE ----------------
-st.markdown("<h1 style='text-align:center; color:#fff;'>Hi, Zeqq ❤️</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#fff;'>I made this little quiz just for you 🥰</p>", unsafe_allow_html=True)
+# ---------------- WELCOME ----------------
+st.markdown("<h1 style='text-align:center; color:white;'>Hi, Zeqq ❤️</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:white;'>I made this little quiz just for you 🥰</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# ---------------- QUIZ STATE ----------------
-if "q1_done" not in st.session_state:
-    st.session_state.q1_done = False
-if "q2_done" not in st.session_state:
-    st.session_state.q2_done = False
-
-# ---------------- LETTER STATE ----------------
-if "letter_opened" not in st.session_state:
-    st.session_state.letter_opened = False
-
-# ---------------- HELPER FUNCTIONS ----------------
-def heart_confetti():
-    hearts = ["💖","💘","💕","💗","💞"]
-    confetti_html = ""
-    for i in range(30):
-        heart = random.choice(hearts)
-        left = random.randint(0,90)
-        top = random.randint(0,90)
-        size = random.randint(20,40)
-        confetti_html += f'<div style="position:absolute; top:{top}%; left:{left}%; font-size:{size}px;">{heart}</div>'
-    st.markdown(confetti_html, unsafe_allow_html=True)
-
-def balloon_animation():
-    for i in range(5):
-        left_pos = random.randint(0,90)
-        st.markdown(f'<div class="balloon" style="left:{left_pos}%;">💖</div>', unsafe_allow_html=True)
-
-def gerbera_animation():
-    flowers = ["🌸","💛"]  # pink and yellow
-    gerbera_html = ""
-    for i in range(20):
-        flower = random.choice(flowers)
-        left = random.randint(0,95)
-        gerbera_html += f'<div class="gerbera" style="left:{left}%;">{flower}</div>'
-    st.markdown(gerbera_html, unsafe_allow_html=True)
-
 # ---------------- QUIZ ----------------
-if not st.session_state.q1_done:
-    st.subheader("1️⃣ What is my favorite activity?")
-    answer1 = st.text_input("Your answer here", key="answer1")
-
+if not st.session_state.q1:
+    ans1 = st.text_input("1️⃣ What is my favorite activity?")
     if st.button("Submit Answer 1"):
-        if answer1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
-            st.success("Correct! 🥰")
-            heart_confetti()
-            balloon_animation()
-            gerbera_animation()
-            st.session_state.q1_done = True
+        if ans1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
+            st.session_state.q1 = True
             st.rerun()
         else:
-            st.error("Hmm… try again 😏")
-elif not st.session_state.q2_done:
-    st.subheader("2️⃣ When was the first time you saw me?")
-    answer2 = st.text_input("Type the date (MM/DD/Y)", key="answer2")
+            st.error("Try again 😏")
+
+elif not st.session_state.q2:
+    ans2 = st.text_input("2️⃣ When was the first time you saw me? (MM/DD/Y)")
     if st.button("Submit Answer 2"):
-        if answer2 in ["08/29/25", "August 29 2025"]:
-            st.success("Correct! 🥰")
-            heart_confetti()
-            balloon_animation()
-            gerbera_animation()
-            st.session_state.q2_done = True
+        if ans2 in ["08/29/25", "August 29 2025"]:
+            st.session_state.q2 = True
             st.rerun()
         else:
-            st.error("Close, but not quite 😏")
+            st.error("Almost 😌")
+
+# ---------------- PHOTO + NEW MUSIC ----------------
+elif not st.session_state.photo_shown:
+    st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
+    st.audio("special_song.mp3", autoplay=True, loop=True)
+    st.image("memory.jfif", use_container_width=True)
+
+    if st.button("💌 Continue"):
+        st.session_state.photo_shown = True
+        st.rerun()
 
 # ---------------- FINAL CONFESSION LETTER ----------------
 else:
@@ -225,12 +175,4 @@ else:
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------- FLOATING HEARTS (only during quiz) ----------------
-if not st.session_state.letter_opened:
-    st.markdown('<div class="hearts">💖 💕 💘 💗 💞</div>', unsafe_allow_html=True)
-
-# ---------------- CONTINUOUS CONFETTI AND BALLOONS (only during quiz) ----------------
-if not st.session_state.letter_opened:
-    heart_confetti()
-    balloon_animation()
 
