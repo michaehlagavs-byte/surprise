@@ -155,7 +155,7 @@ def gerbera_animation():
     </div>
     """, unsafe_allow_html=True)
 
-        if st.button("💖 Open Letter"):
+if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
             st.rerun()
     else:
@@ -216,6 +216,7 @@ def gerbera_animation():
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
