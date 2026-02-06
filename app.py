@@ -4,6 +4,35 @@ import random
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
 
+# ---------------- GERBERA ANIMATION FUNCTION ----------------
+def gerbera_animation():
+    st.markdown("""
+    <style>
+    .gerbera-container {
+        position: fixed;
+        bottom: -10%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 38px;
+        animation: floatUp 8s linear infinite;
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 0; }
+        20% { opacity: 0.8; }
+        100% { transform: translateY(-120vh); opacity: 0; }
+    }
+    </style>
+
+    <div class="gerbera-container">
+        🌸 💛 🌸 💛 🌸 💛
+    </div>
+    """, unsafe_allow_html=True)
+
 # ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
@@ -102,47 +131,22 @@ elif not st.session_state.photo_shown:
         st.session_state.photo_shown = True
         st.rerun()
 
-        # Gerbera animation behind the envelope (optional)
-def gerbera_animation():
-    st.markdown("""
-    <style>
-    .gerbera-container {
-        position: fixed;
-        bottom: -10%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 38px;
-        animation: floatUp 8s linear infinite;
-        opacity: 0.6;
-        pointer-events: none;
-        z-index: -1;
-    }
+# ---------------- FINAL CONFESSION LETTER ----------------
+else:
+    st.subheader("💌 Your reward: My letter")
 
-    @keyframes floatUp {
-        0% {
-            transform: translateY(0);
-            opacity: 0;
-        }
-        20% {
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateY(-120vh);
-            opacity: 0;
-        }
-    }
-    </style>
+    if not st.session_state.letter_opened:
+        # Show uploaded envelope image first
+        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
 
-    <div class="gerbera-container">
-        🌸 💛 🌸 💛 🌸 💛
-    </div>
-    """, unsafe_allow_html=True)
+        # Gerbera animation behind the envelope
+        gerbera_animation()
 
-if st.button("💖 Open Letter"):
+        if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
             st.rerun()
-else:
+
+    else:
         # Show the white paper with confession
         st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
         st.markdown("""
@@ -163,7 +167,7 @@ else:
         And then there were the gifts. The thought you put into them. But most of all… the flowers.<br><br>
 
         The <b>six gerberas</b> you gave me—<b>three pink and three yellow</b>—will always stay with me. That was my first
-        time receiving flowers. Ever. And I don’t think you understand how much that meant to someone like me.
+        time receiving flowers. Ever. And that I don’t think you understand how much that meant to someone like me.
         Pink for warmth and affection, yellow for happiness and light—you gave me both. That moment changed something
         in me. It made me feel valued, appreciated, and cared for in a way I had never experienced before.<br><br>
 
@@ -192,7 +196,7 @@ else:
         </p>
         """, unsafe_allow_html=True)
 
-        # 🌸 End-of-letter flourish: 2 pink, 2 yellow, 2 red flowers
+        # End-of-letter flourish
         st.markdown("""
         <div style="text-align:center; font-size:40px;">
             🌸 🌸 💛 💛 🌹 🌹
@@ -200,7 +204,6 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
-
 
 
 
