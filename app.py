@@ -135,17 +135,18 @@ elif not st.session_state.photo_stage:
         st.rerun()
 
 # ---------------- FINAL CONFESSION LETTER ----------------
-else:
-    st.audio("music.mp3", autoplay=True, loop=True)
-    gerbera_animation()
-    st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
+st.audio("music.mp3", autoplay=True, loop=True)
+gerbera_animation()
+st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
 
+if not st.session_state.letter_opened:
     if st.button("💖 Open Letter"):
-            st.session_state.letter_opened = True
-            st.rerun()
-    else:
-        # Show the white paper with confession
-        st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
+        st.session_state.letter_opened = True
+        st.rerun()
+else:
+    # Show the white paper with confession only if letter_opened is True
+    st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
+    st.markdown("""... your full confession HTML ...""", unsafe_allow_html=True)
         st.markdown("""
         <h3>📩 Opened with love</h3>
         <p>
@@ -201,6 +202,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
