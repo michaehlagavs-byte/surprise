@@ -70,12 +70,13 @@ defaults = {
     "q1_done": False,
     "q2_done": False,
     "photo_stage": False,
-    "letter_stage": False,
+    "letter_opened": False,          # <-- ADD THIS
     "photo_index": 0,
     "photo_music_playing": False
 }
 for k, v in defaults.items():
     st.session_state.setdefault(k, v)
+
 
 # ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
@@ -205,6 +206,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
