@@ -158,7 +158,7 @@ def gerbera_animation():
 if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
             st.rerun()
-    else:
+else:
         # Show the white paper with confession
         st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
         st.markdown("""
@@ -216,6 +216,7 @@ if st.button("💖 Open Letter"):
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
