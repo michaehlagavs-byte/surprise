@@ -64,11 +64,23 @@ if not st.session_state.unlocked:
     st.stop()
 
 # ---------------- MUSIC ----------------
-try:
-    with open("music.mp3", "rb") as audio_file:
-        st.audio(audio_file.read(), format="audio/mp3", autoplay=True, loop=True)
-except:
-    st.warning("🎶 Music file not found. The surprise still works!")
+if "music_played" not in st.session_state:
+    st.session_state.music_played = False
+
+if not st.session_state.music_played:
+    if st.button("🎵 Play Background Music"):
+        try:
+            with open("music.mp3", "rb") as audio_file:
+                st.audio(audio_file.read(), format="audio/mp3", autoplay=True, loop=True)
+            st.session_state.music_played = True
+        except:
+            st.warning("🎶 Music file not found. The surprise still works!")
+else:
+    try:
+        with open("music.mp3", "rb") as audio_file:
+            st.audio(audio_file.read(), format="audio/mp3", autoplay=True, loop=True)
+    except:
+        st.warning("🎶 Music file not found. The surprise still works!")
 
 # ---------------- WELCOME MESSAGE ----------------
 st.markdown("<h1 style='text-align:center; color:#fff;'>Hi, Zeqq ❤️</h1>", unsafe_allow_html=True)
@@ -221,3 +233,4 @@ if not st.session_state.letter_opened:
 if not st.session_state.letter_opened:
     heart_confetti()
     balloon_animation()
+
