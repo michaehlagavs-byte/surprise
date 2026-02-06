@@ -140,7 +140,7 @@ else:
     gerbera_animation()
     st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
 
-else:
+
     st.subheader("💌 Your reward: My letter")
 
     if not st.session_state.letter_opened:
@@ -211,6 +211,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
