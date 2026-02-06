@@ -102,22 +102,6 @@ elif not st.session_state.photo_shown:
         st.session_state.photo_shown = True
         st.rerun()
 
-# ---------------- FINAL CONFESSION LETTER ----------------
-else:
-    st.subheader("💌 Your reward: My letter")
-
-    if not st.session_state.letter_opened:
-        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
-
-        # Gerbera animation behind the envelope (optional)
-        gerbera_animation()
-
-        if st.button("💖 Open Letter"):
-            st.session_state.letter_opened = True
-            st.rerun()
-
-        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
-
         # Gerbera animation behind the envelope (optional)
 def gerbera_animation():
     st.markdown("""
@@ -216,6 +200,7 @@ else:
         """, unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
