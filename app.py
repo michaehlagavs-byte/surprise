@@ -135,7 +135,8 @@ body {
 """, unsafe_allow_html=True)
 
 # ---------------- SESSION STATES ----------------
-for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened","photo_index","photo_music_played"]:
+for key in ["unlocked","q1_done","q2_done","photo_shown","letter_opened",
+            "quiz_music_played","photo_music_played","letter_music_played","photo_index"]:
     if key not in st.session_state:
         st.session_state[key] = False
 st.session_state.photo_index = st.session_state.photo_index if "photo_index" in st.session_state else 0
@@ -156,10 +157,11 @@ st.markdown("<h1 style='text-align:center; color:white;'>Hi, Zeqq ❤️</h1>", 
 st.markdown("<p style='text-align:center; color:white;'>I made this little quiz just for you 🥰</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# ---------------- STAGE 1: QUIZ ----------------
+# ---------------- STAGE 1 & 2: QUIZ ----------------
 if not st.session_state.q1_done:
-    if st.button("🎵 Play Quiz Music"):
-        st.audio("music.mp3", loop=True)
+    if not st.session_state.quiz_music_played:
+        st.audio("music.mp3", autoplay=True, loop=True)
+        st.session_state.quiz_music_played = True
     ans1 = st.text_input("1️⃣ What is my favorite activity?")
     if st.button("Submit Answer 1"):
         if ans1.lower() in ["matulog", "sleeping", "reading", "magbasa"]:
@@ -171,8 +173,9 @@ if not st.session_state.q1_done:
             st.error("Try again 😏")
 
 elif not st.session_state.q2_done:
-    if st.button("🎵 Play Quiz Music"):
-        st.audio("music.mp3", loop=True)
+    if not st.session_state.quiz_music_played:
+        st.audio("music.mp3", autoplay=True, loop=True)
+        st.session_state.quiz_music_played = True
     ans2 = st.text_input("2️⃣ When was the first time you saw me? (MM/DD/Y)")
     if st.button("Submit Answer 2"):
         if ans2 in ["08/29/25", "August 29 2025"]:
@@ -183,39 +186,37 @@ elif not st.session_state.q2_done:
         else:
             st.error("Almost 😏")
 
-# ---------------- STAGE 2: PHOTO (COLLAGE/SCROLL) ----------------
+# ---------------- STAGE 3: PHOTO ----------------
 elif not st.session_state.photo_shown:
     if not st.session_state.photo_music_played:
-        if st.button("🎵 Play Photo Music"):
-            st.audio("special_song.mp3", loop=True)
-            st.session_state.photo_music_played = True
+        st.audio("special_song.mp3", autoplay=True, loop=True)
+        st.session_state.photo_music_played = True
 
     st.markdown("<h2 style='text-align:center; color:white;'>A memory I want to share 🤍</h2>", unsafe_allow_html=True)
-    
-    photo_list = ["memory.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
-    st.image(photo_list[st.session_state.photo_index], use_container_width=True)
-    
+
+    # Multiple photos
+    photos = ["memory1.jfif","memory2.jfif","memory3.jfif","memory4.jfif"]
+    st.image(photos[st.session_state.photo_index], use_container_width=True)
     floating_hearts_flowers()
 
-    col1, col2, col3 = st.columns([1,2,1])
+    col1, col2 = st.columns(2)
     with col1:
-        if st.button("⬅️ Previous"):
-            if st.session_state.photo_index > 0:
-                st.session_state.photo_index -= 1
-    with col3:
-        if st.button("Next ➡️"):
-            if st.session_state.photo_index < len(photo_list)-1:
-                st.session_state.photo_index += 1
+        if st.button("⬅ Previous"):
+            st.session_state.photo_index = max(0, st.session_state.photo_index - 1)
+    with col2:
+        if st.button("Next ➡"):
+            st.session_state.photo_index = min(len(photos)-1, st.session_state.photo_index + 1)
 
-    if st.session_state.photo_index == len(photo_list)-1:
-        if st.button("💌 Continue"):
-            st.session_state.photo_shown = True
-            st.rerun()
+    if st.button("💌 Continue"):
+        st.session_state.photo_shown = True
+        st.rerun()
 
-# ---------------- STAGE 3: LETTER ----------------
+# ---------------- STAGE 4: LETTER ----------------
 elif not st.session_state.letter_opened:
-    if st.button("🎵 Play Letter Music"):
-        st.audio("music.mp3", loop=True)
+    if not st.session_state.letter_music_played:
+        st.audio("music.mp3", autoplay=True, loop=True)
+        st.session_state.letter_music_played = True
+
     st.subheader("💌 Your reward: My letter")
     st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
     gerbera_animation()
