@@ -86,7 +86,20 @@ if not st.session_state.unlocked:
         st.session_state.unlocked = True
         st.rerun()
     st.stop()
+# ---------------- PASSWORD ----------------
+if not st.session_state.unlocked:
+    st.title("🔐 A Secret Just for You")
+    st.caption("💡 Hint: month and day of the second day of DSPC")
 
+    pwd = st.text_input("Enter the password", type="password", placeholder="MMDD")
+
+    if pwd == "1213":
+        st.session_state.unlocked = True
+        st.rerun()
+    elif pwd != "":
+        st.warning("Almost… think of DSPC 💭")
+
+    st.stop()
 # ---------------- QUIZ ----------------
 if not st.session_state.q1_done:
     st.audio("music.mp3", autoplay=True, loop=True)
@@ -208,6 +221,7 @@ else:
         """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
