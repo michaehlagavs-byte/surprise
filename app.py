@@ -32,34 +32,45 @@ def gerbera_animation():
 def floating_hearts_flowers():
     st.markdown("""
     <style>
-    .float-confetti {
+    .confetti {
         position: fixed;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         pointer-events: none;
         z-index: 9999;
     }
-    .float-confetti span {
+    .confetti span {
         position: absolute;
-        font-size: 24px;
-        animation: floatUpConfetti linear infinite;
+        top: -10%;
+        font-size: 26px;
+        animation: fall linear infinite;
+        opacity: 0.85;
     }
-    @keyframes floatUpConfetti {
-        0% { transform: translateY(100vh); opacity: 1; }
-        100% { transform: translateY(-10vh); opacity: 0; }
+    @keyframes fall {
+        0% {
+            transform: translateY(-10vh) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
     }
     </style>
-    <div class="float-confetti">
-        <span style="left:10%; animation-duration:6s;">💖</span>
-        <span style="left:30%; animation-duration:8s;">🌸</span>
-        <span style="left:50%; animation-duration:7s;">💛</span>
-        <span style="left:70%; animation-duration:9s;">🌹</span>
+
+    <div class="confetti">
+        <span style="left:5%;  animation-duration:6s;">🌸</span>
+        <span style="left:15%; animation-duration:8s;">💖</span>
+        <span style="left:30%; animation-duration:7s;">💛</span>
+        <span style="left:45%; animation-duration:9s;">🌹</span>
+        <span style="left:60%; animation-duration:6.5s;">🌸</span>
+        <span style="left:75%; animation-duration:8.5s;">💖</span>
+        <span style="left:90%; animation-duration:7.5s;">💛</span>
     </div>
     """, unsafe_allow_html=True)
 
 def confetti_burst():
     st.markdown("""
-    <div style="position:fixed;top:0;width:100%;text-align:center;font-size:30px;">
+    <div style="position:fixed;top:0;width:100%;text-align:center;font-size:32px;">
         🎉 💖 🌸 💛 🌹 🎉
     </div>
     """, unsafe_allow_html=True)
@@ -116,8 +127,7 @@ elif not st.session_state.photo_stage:
     if not st.session_state.photo_music_playing:
         st.session_state.photo_music_playing = True
 
-    if st.session_state.photo_music_playing:
-        st.audio("special_song.mp3", autoplay=True, loop=True)
+    st.audio("special_song.mp3", autoplay=True, loop=True)
 
     photos = ["memory.jfif", "memory2.jfif", "memory3.jfif", "memory4.jfif"]
     st.image(photos[st.session_state.photo_index], use_container_width=True)
@@ -129,6 +139,7 @@ elif not st.session_state.photo_stage:
             st.rerun()
     with col2:
         if st.button("➡️ Next"):
+            confetti_burst()
             st.session_state.photo_index = min(len(photos)-1, st.session_state.photo_index + 1)
             st.rerun()
 
@@ -155,7 +166,9 @@ else:
         st.markdown("""
         <h3>📩 Opened with love</h3>
         <p>
-         I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
+       Dear Zeqq,<br><br>
+
+        I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
 
         I only recently realized how much you mean to me—and maybe that’s what makes this confession feel so real.
         Nothing was rushed, nothing was forced. It grew quietly, gently, until one day I just knew.<br><br>
@@ -202,8 +215,6 @@ else:
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
-
-
 
 
 
