@@ -5,6 +5,34 @@ import random
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
 st.markdown("""
 <style>
+/* Global background + font color */
+.stApp {
+    background: linear-gradient(180deg, #ffe6ee, #fff5f8);
+    color: black;
+}
+
+/* All headings and text */
+h1, h2, h3, h4, h5, h6, p, span, div {
+    color: black !important;
+}
+
+/* Streamlit buttons */
+.stButton>button {
+    background-color: #ff4d6d !important; /* red */
+    color: white !important;               /* font color */
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 20px;
+}
+.stButton>button:hover {
+    background-color: #ff2a4a !important; /* darker red on hover */
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
 .stApp {
     background: linear-gradient(180deg, #ffe6ee, #fff5f8);
     color: black;  /* sets font color globally */
@@ -236,6 +264,7 @@ else:
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
+
 
 
 
