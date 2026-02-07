@@ -70,22 +70,13 @@ defaults = {
     "q1_done": False,
     "q2_done": False,
     "photo_stage": False,
-    "letter_opened": False,          # <-- ADD THIS
+    "letter_opened": False,
     "photo_index": 0,
     "photo_music_playing": False
 }
 for k, v in defaults.items():
     st.session_state.setdefault(k, v)
 
-
-# ---------------- PASSWORD ----------------
-if not st.session_state.unlocked:
-    st.title("🔐 A Secret Just for You")
-    pwd = st.text_input("Enter the password", type="password")
-    if pwd == "1213":
-        st.session_state.unlocked = True
-        st.rerun()
-    st.stop()
 # ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
     st.title("🔐 A Secret Just for You")
@@ -100,6 +91,7 @@ if not st.session_state.unlocked:
         st.warning("Almost… think of DSPC 💭")
 
     st.stop()
+
 # ---------------- QUIZ ----------------
 if not st.session_state.q1_done:
     st.audio("music.mp3", autoplay=True, loop=True)
@@ -151,27 +143,19 @@ elif not st.session_state.photo_stage:
 else:
     st.subheader("💌 Your reward: My letter")
 
-    # CLOSED ENVELOPE
     if not st.session_state.letter_opened:
         st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
-
-        # Optional background animation
         gerbera_animation()
 
         if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
             st.rerun()
 
-    # OPENED LETTER
     else:
-        st.markdown('<div class="fade-in envelope">', unsafe_allow_html=True)
-
         st.markdown("""
         <h3>📩 Opened with love</h3>
         <p>
-        Dear Zeqq,<br><br>
-
-        I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
+         I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
 
         I only recently realized how much you mean to me—and maybe that’s what makes this confession feel so real.
         Nothing was rushed, nothing was forced. It grew quietly, gently, until one day I just knew.<br><br>
@@ -213,14 +197,13 @@ else:
         </p>
         """, unsafe_allow_html=True)
 
-        # 🌸 End-of-letter flourish: 2 pink, 2 yellow, 2 red flowers
-    st.markdown("""
+        st.markdown("""
         <div style="text-align:center; font-size:40px;">
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
