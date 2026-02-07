@@ -3,6 +3,13 @@ import random
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(180deg, #ffe6ee, #fff5f8);
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------- FUNCTIONS ----------------
 def gerbera_animation():
@@ -215,6 +222,7 @@ else:
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
+
 
 
 
