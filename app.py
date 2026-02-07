@@ -7,6 +7,20 @@ st.markdown("""
 <style>
 .stApp {
     background: linear-gradient(180deg, #ffe6ee, #fff5f8);
+    color: black;  /* sets font color globally */
+}
+
+/* Optional: make all headings also black */
+h1, h2, h3, h4, h5, h6, p, span, div {
+    color: black !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(180deg, #ffe6ee, #fff5f8);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -222,6 +236,7 @@ else:
             🌸 🌸 💛 💛 🌹 🌹
         </div>
         """, unsafe_allow_html=True)
+
 
 
 
