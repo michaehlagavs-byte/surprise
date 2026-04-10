@@ -140,12 +140,12 @@ for k, v in defaults.items():
 
 # ---------------- PASSWORD ----------------
 if not st.session_state.unlocked:
-    st.title("🔐 A Secret Just for You")
-    st.caption("💡 Hint: month and day of the second day of DSPC")
+    st.title("🔐 Letters the Heart Never Sent")
+    st.caption("💡 Hint: my birthday")
 
     pwd = st.text_input("Enter the password", type="password", placeholder="MMDD")
 
-    if pwd == "1213":
+    if pwd == "1214":
         st.session_state.unlocked = True
         st.rerun()
     elif pwd != "":
@@ -220,7 +220,7 @@ else:
         # 🎵 Music starts here
      st.audio("Maybe The Night.mp3", autoplay=True, loop=True)
 
-        floating_hearts_flowers()
+    floating_hearts_flowers()
 
         # ✨ Typewriter letter
         letter = """
