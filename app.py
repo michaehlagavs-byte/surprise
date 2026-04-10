@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import time
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
@@ -219,7 +220,7 @@ else:
         # 🎵 Music starts here
         st.audio("special_song.mp3", loop=True)
 
-        floating_hearts()
+        floating_hearts_flowers()
 
         # ✨ Typewriter letter
         letter = """
