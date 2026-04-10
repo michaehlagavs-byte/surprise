@@ -246,7 +246,7 @@ Always,<br>
 </p>
 """
         
-   placeholder = st.empty()
+     placeholder = st.empty()
         typed = ""
 
         for char in letter:
