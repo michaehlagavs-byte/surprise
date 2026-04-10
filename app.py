@@ -218,7 +218,7 @@ else:
 
     else:
         # 🎵 Music starts ONLY when letter is opened
-        st.audio("Maybe The Night.mp3", loop=True)
+        st.audio("Maybe The Night.mp3", autoplay=True, loop=True)
 
         floating_hearts_flowers()
 
