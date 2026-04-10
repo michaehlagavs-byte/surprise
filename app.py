@@ -149,7 +149,7 @@ if not st.session_state.unlocked:
         st.session_state.unlocked = True
         st.rerun()
     elif pwd != "":
-        st.warning("Almost… think of DSPC 💭")
+        st.warning("Almost… 💭")
 
     st.stop()
 
