@@ -207,7 +207,7 @@ else:
     if not st.session_state.letter_opened:
         st.markdown("""
         <div style="text-align:center;">
-            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" class="envelope">
+            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png">
             <p>Click to open 💖</p>
         </div>
         """, unsafe_allow_html=True)
@@ -217,13 +217,12 @@ else:
             st.rerun()
 
     else:
-        # 🎵 Music starts here
-     st.audio("Maybe The Night.mp3", autoplay=True, loop=True)
+        # 🎵 Music starts ONLY when letter is opened
+        st.audio("Maybe The Night.mp3", loop=True)
 
-    floating_hearts_flowers()
+        floating_hearts_flowers()
 
-        # ✨ Typewriter letter
-    letter = """
+        letter = """
 Dear Zeqq,<br><br>
 
 I’ve been meaning to write this for a while now because there are things I genuinely want to thank you for. Some feelings are hard to say out loud, so I thought writing them might be better. Over time, I realized how much I appreciate what we have. And I didn’t want to let that go unspoken.<br><br>
@@ -247,13 +246,17 @@ Always,<br>
 </p>
 """
         
-    placeholder = st.empty()
-    typed = ""
+   placeholder = st.empty()
+        typed = ""
 
-    for char in letter:
+        for char in letter:
             typed += char
-            placeholder.markdown(f"<div class='fade-in'><p>{typed}</p></div>", unsafe_allow_html=True)
+            placeholder.markdown(
+                f"<div class='fade-in'><p>{typed}</p></div>",
+                unsafe_allow_html=True
+            )
             time.sleep(0.015)
+
 
 
 
