@@ -3,7 +3,7 @@ import random
 import time
 
 # ---------------- PAGE CONFIG ----------------
-st.set_page_config(page_title="For You ❤️", page_icon="💌", layout="centered")
+st.set_page_config(page_title="secret", page_icon="💌", layout="centered")
 st.markdown("""
 <style>
 /* Global background + font color */
