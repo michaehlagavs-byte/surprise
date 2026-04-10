@@ -244,7 +244,9 @@ Thank you for being there, for your presence, and for everything you’ve shared
 Always,<br>
 <b>Ehla ❤️</b>
 </p>
-""",   placeholder = st.empty()
+"""
+        
+        placeholder = st.empty()
         typed = ""
 
         for char in letter:
