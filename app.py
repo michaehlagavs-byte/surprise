@@ -201,20 +201,28 @@ elif not st.session_state.photo_stage:
 
 # ---------------- FINAL CONFESSION LETTER ----------------
 else:
-    st.subheader("💌 Your reward: My letter")
+    st.subheader("💌 Your reward")
 
     if not st.session_state.letter_opened:
-        st.image("d02276b6-733b-490f-9994-6628b8628641.webp", width=300)
-        gerbera_animation()
+        st.markdown("""
+        <div style="text-align:center;">
+            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" class="envelope">
+            <p>Click to open 💖</p>
+        </div>
+        """, unsafe_allow_html=True)
 
         if st.button("💖 Open Letter"):
             st.session_state.letter_opened = True
             st.rerun()
 
     else:
-        st.markdown("""
-<h3>📩 Opened with love</h3>
-<p>
+        # 🎵 Music starts here
+        st.audio("special_song.mp3", loop=True)
+
+        floating_hearts()
+
+        # ✨ Typewriter letter
+        letter = """
 Dear Zeqq,<br><br>
 
 I’ve been meaning to write this for a while now because there are things I genuinely want to thank you for. Some feelings are hard to say out loud, so I thought writing them might be better. Over time, I realized how much I appreciate what we have. And I didn’t want to let that go unspoken.<br><br>
@@ -236,8 +244,13 @@ Thank you for being there, for your presence, and for everything you’ve shared
 Always,<br>
 <b>Ehla ❤️</b>
 </p>
-""", unsafe_allow_html=True)
+""",   placeholder = st.empty()
+        typed = ""
 
+        for char in letter:
+            typed += char
+            placeholder.markdown(f"<div class='fade-in'><p>{typed}</p></div>", unsafe_allow_html=True)
+            time.sleep(0.015)
 
 
 
