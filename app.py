@@ -223,7 +223,7 @@ else:
     floating_hearts_flowers()
 
         # ✨ Typewriter letter
-        letter = """
+    letter = """
 Dear Zeqq,<br><br>
 
 I’ve been meaning to write this for a while now because there are things I genuinely want to thank you for. Some feelings are hard to say out loud, so I thought writing them might be better. Over time, I realized how much I appreciate what we have. And I didn’t want to let that go unspoken.<br><br>
