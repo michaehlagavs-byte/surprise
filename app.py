@@ -179,7 +179,7 @@ elif not st.session_state.photo_stage:
 
     st.audio("special_song.mp3", autoplay=True, loop=True)
 
-    photos = ["memory.jfif", "memory2.jfif", "memory3.jfif", "memory4.jfif"]
+    photos = ["memory.jfif", "memory2.jfif", "memory3.jfif", "memory4.jfif", "memory5.jfif", "memory6.jfif"]
     st.image(photos[st.session_state.photo_index], use_container_width=True)
 
     col1, col2 = st.columns(2)
