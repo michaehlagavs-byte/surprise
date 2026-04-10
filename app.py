@@ -248,9 +248,9 @@ Always,<br>
 """
         
     placeholder = st.empty()
-        typed = ""
+    typed = ""
 
-        for char in letter:
+    for char in letter:
             typed += char
             placeholder.markdown(f"<div class='fade-in'><p>{typed}</p></div>", unsafe_allow_html=True)
             time.sleep(0.015)
