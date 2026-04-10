@@ -213,57 +213,31 @@ else:
 
     else:
         st.markdown("""
-        <h3>📩 Opened with love</h3>
-        <p>
-       Dear Zeqq,<br><br>
+<h3>📩 Opened with love</h3>
+<p>
+Dear Zeqq,<br><br>
 
-        I’ve been carrying these thoughts in my heart for a while now, and I think it’s finally time I let them out.<br><br>
+I’ve been meaning to write this for a while now because there are things I genuinely want to thank you for. Some feelings are hard to say out loud, so I thought writing them might be better. Over time, I realized how much I appreciate what we have. And I didn’t want to let that go unspoken.<br><br>
 
-        I only recently realized how much you mean to me—and maybe that’s what makes this confession feel so real.
-        Nothing was rushed, nothing was forced. It grew quietly, gently, until one day I just knew.<br><br>
+What started as something simple and unexpected slowly became meaningful to me. It wasn’t something I planned or overthought, but it grew naturally. Looking back, I’m really glad things turned out this way. Sometimes the best connections really do come when you least expect them.<br><br>
 
-        Since we started talking on <b>September 28</b>, everything slowly changed. What began as something unexpected—
-        because of a dare—turned into something I’m deeply grateful for. You were there during <b>DSPC</b>, and your
-        presence meant more than you probably realized. In moments when things felt overwhelming, you were someone I
-        could look at and feel calm. Safe.<br><br>
+There were moments when everything felt overwhelming, and somehow, your presence made things feel lighter. You became someone I could rely on in quiet ways. Even without saying much, there was comfort just knowing you were there. And that kind of presence means more than words can explain.<br><br>
 
-        And then there were the gifts. The thought you put into them. But most of all… the flowers.<br><br>
+I also appreciate the small things you’ve done along the way. The effort, the thought, and the sincerity behind them didn’t go unnoticed. Those simple moments stayed with me more than you probably think. They made me feel seen and appreciated in a genuine way.<br><br>
 
-        The <b>six gerberas</b> you gave me—<b>three pink and three yellow</b>—will always stay with me. That was my first
-        time receiving flowers. Ever. And I don’t think you understand how much that meant to someone like me.
-        Pink for warmth and affection, yellow for happiness and light—you gave me both. That moment changed something
-        in me. It made me feel valued, appreciated, and cared for in a way I had never experienced before.<br><br>
+Because of you, I’ve learned to open up a little more. I used to keep my guard up and hesitate to let people in. But with you, things felt different—easier and more natural. You didn’t force anything, and that made it easier for me to trust.<br><br>
 
-        I’ve always been someone who kept her guard up. I used to say I was a “man hater,” and maybe in some ways I was—
-        because I was scared. Scared of trusting, scared of being disappointed, scared of opening my heart.
-        You’re the <b>first guy I ever truly talked to</b>, the first one I allowed close, and that wasn’t easy for me.
-        But you made it feel natural. You were patient. Kind. Gentle.<br><br>
+I’m also grateful for the patience and understanding you’ve shown. Not everyone takes the time to understand someone the way you did. You gave me space when I needed it and stayed when it mattered. That balance is something I truly value.<br><br>
 
-        Thinking back to <b>August 29</b>, the first time you saw me—and when you confessed—I didn’t realize then how much
-        that moment would matter. I didn’t realize how your sincerity would slowly break down walls I thought would
-        always stay up.<br><br>
+What we have now is something I don’t take for granted. It may seem simple, but it’s real and meaningful to me. It’s built on shared moments, understanding, and genuine presence. And that’s something I want to keep.<br><br>
 
-        Now I understand.<br><br>
+Thank you for being there, for your presence, and for everything you’ve shared with me. I’m truly grateful for you and for the bond we’ve built. No matter where things go, I’ll always appreciate what we have.<br><br>
 
-        I like you, Zeqq. Truly. Deeply. In a way that feels honest and real. You’ve changed how I see things—how I see
-        people, how I see love, how I see the possibility of trusting someone. You didn’t force your way into my heart.
-        You earned your place there.<br><br>
+Always,<br>
+<b>Ehla ❤️</b>
+</p>
+""", unsafe_allow_html=True)
 
-        Thank you for being there. Thank you for the gifts, the flowers, the effort, the presence. Thank you for being
-        patient with someone who was learning how to feel again.<br><br>
-
-        This is my confession, from the heart. And I hope you know how special you are to me.<br><br>
-
-        Always,<br>
-        <b>Ehla ❤️</b>
-        </p>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div style="text-align:center; font-size:40px;">
-            🌸 🌸 💛 💛 🌹 🌹
-        </div>
-        """, unsafe_allow_html=True)
 
 
 
